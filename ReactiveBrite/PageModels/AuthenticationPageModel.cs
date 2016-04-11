@@ -13,9 +13,9 @@ namespace ReactiveBrite.PageModels
     {
         public AuthenticationPageModel()
         {
-            MessagingCenter.Subscribe<AuthenticationPage, string>(this, "UserAuthenticated", (sender, arg) => {
-                LoggedCommand.Execute(arg);
-            });
+            //MessagingCenter.Subscribe<AuthenticationPage, string>(this, "UserAuthenticated", (sender, arg) => {
+            //    LoggedCommand.Execute(arg);
+            //});
         }
 
         public Command LoggedCommand
@@ -30,8 +30,9 @@ namespace ReactiveBrite.PageModels
                     if (App.IsLoggedIn)
                     {
                         await CoreMethods.PushPageModel<MainPageModel>();
-                        CurrentPage.Navigation.InsertPageBefore(new MainPage(), Application.Current.MainPage.Navigation.NavigationStack.First());
-                        //CurrentPage.Navigation.InsertPageBefore(new MainPage(), MainPage.Navigation.NavigationStack.First());
+                        
+                        //correggere con rootNavigation
+                        CurrentPage.Navigation.InsertPageBefore(FreshPageModelResolver.ResolvePageModel<MainPageModel>(), Application.Current.MainPage.Navigation.NavigationStack.First());
                         await CoreMethods.PopToRoot(true);
                     }
                 });

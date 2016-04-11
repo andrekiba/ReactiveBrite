@@ -12,10 +12,12 @@ namespace ReactiveBrite
 {
 	public class App : Application
 	{
-        public static string AppName => "ReactiveBrite";
+        public static string AppName => "Reactive Brite";
 	    public static User User { get; set; }
         public static bool IsLoggedIn => !string.IsNullOrWhiteSpace(User?.Email);
 	    public static bool IsConnected { get; set; }
+
+	    private FreshNavigationContainer navContainer;
 
         public App ()
 		{
@@ -44,28 +46,26 @@ namespace ReactiveBrite
         private void LoadBasicNav()
         {
             var login = FreshPageModelResolver.ResolvePageModel<LoginPageModel>();
-            var connected = FreshPageModelResolver.ResolvePageModel<MainPageModel>();
-            var notConnected = FreshPageModelResolver.ResolvePageModel<NoNetworkPageModel>();
-      
-            if (IsConnected)
-            {
-                MainPage = IsLoggedIn ? new FreshNavigationContainer(connected) : new FreshNavigationContainer(login);
-            }
-            else
-            {
-                MainPage = new FreshNavigationContainer(notConnected);
-            }    
+            navContainer = new FreshNavigationContainer(login);
+            MainPage = navContainer;
         }
 
-	    private void HandleConnectivityChanged(object sender, ConnectivityChangedEventArgs e)
+	    private async void HandleConnectivityChanged(object sender, ConnectivityChangedEventArgs e)
         {
-            //var currentPage = this.MainPage.GetType();
-            //if (e.IsConnected && currentPage != typeof(NetworkViewPage))
-            //    MainPage = new NetworkViewPage();
-            //else if (!e.IsConnected && currentPage != typeof(NoNetworkPage))
-            //    MainPage = new NoNetworkPage();
             IsConnected = e.IsConnected;
-            LoadBasicNav();
+
+            var noNetwork = FreshPageModelResolver.ResolvePageModel<NoNetworkPageModel>();
+
+            if (IsConnected)
+            {
+                if (navContainer.Navigation.ModalStack.LastOrDefault().GetType() == typeof (NoNetworkPage))
+                    await navContainer.PopPage(true);
+            }
+	        else
+            {
+                if(navContainer.Navigation.ModalStack.LastOrDefault().GetType() != typeof(NoNetworkPage))
+                    await navContainer.PushPage(noNetwork, noNetwork.GetModel(), true);
+            }
         }
 
         public Action SuccessfulLoginAction
