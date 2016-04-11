@@ -1,0 +1,15 @@
+﻿<Properties StartupItem="iOS/ReactiveBrite.iOS.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.IPhone6s.9.3" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="iOS/Renderers/AuthenticationPageRenderer.cs">
+    <Files>
+      <File FileName="ReactiveBrite/Services/EventBriteService.cs" Line="32" Column="27" />
+      <File FileName="iOS/Renderers/AuthenticationPageRenderer.cs" Line="10" Column="20" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore>
+      <Breakpoint file="/Volumes/bahamut/projects/ReactiveBrite/iOS/Renderers/AuthenticationPageRenderer.cs" line="24" column="1" />
+    </BreakpointStore>
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>

@@ -1,0 +1,4 @@
+Main.cs
+AppDelegate.cs
+Renderers/AuthenticationPageRenderer.cs
+obj/iPhoneSimulator/Debug/Xamarin.iOS,Version=v1.0.AssemblyAttribute.cs
