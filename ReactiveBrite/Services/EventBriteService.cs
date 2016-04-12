@@ -14,34 +14,33 @@ namespace ReactiveBrite.Services
 {
     class EventBriteService : IEventBriteService
     {
-        private const string EventBriteUrl = "http://api.tekconf.com/v1/";
-        private string authorizationKey;
-
-        private async Task<HttpClient> GetClient()
+        private HttpClient GetClient()
         {
             var client = new HttpClient(new NativeMessageHandler());
 
-            if (string.IsNullOrEmpty(authorizationKey))
-            {
-                authorizationKey = await client.GetStringAsync(EventBriteUrl + "login");
-                authorizationKey = authorizationKey.Trim('"');
-            }
+            //if (string.IsNullOrEmpty(authorizationKey))
+            //{
+            //    authorizationKey = await client.GetStringAsync(EventBriteUrl + "login");
+            //    authorizationKey = authorizationKey.Trim('"');
+            //}
 
-            client.DefaultRequestHeaders.Add("Authorization", authorizationKey);
+            client.DefaultRequestHeaders.Add("Authorization", "Bearer" + EventbriteConstants.PersonalToken);
             client.DefaultRequestHeaders.Add("Accept", "application/json");
             return client;
         }
 
         public async Task<IEnumerable<Event>> GetEvents(string search)
         {
-            var client = await GetClient();
-            var result = await client.GetStringAsync(EventBriteUrl);
+            var client = GetClient();
+            var result = await client.GetStringAsync(EventbriteConstants.EventbriteRootUrl);
             return JsonConvert.DeserializeObject<IEnumerable<Event>>(result);
         }
 
-        public Task<Event> GetEvent(string name)
+        public async Task<Event> GetEvent(string id)
         {
-            throw new NotImplementedException();
+            var client = GetClient();
+            var result = await client.GetStringAsync(EventbriteConstants.EventbriteRootUrl);
+            return JsonConvert.DeserializeObject<Event>(result);
         }
     }
 }

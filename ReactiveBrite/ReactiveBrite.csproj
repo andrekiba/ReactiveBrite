@@ -50,9 +50,9 @@
     <Compile Include="Pages\NoNetworkPage.xaml.cs">
       <DependentUpon>NoNetworkPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ReactiveBrite.cs" />
+    <Compile Include="App.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\ConnectionConstants.cs" />
+    <Compile Include="Services\EventbriteConstants.cs" />
     <Compile Include="Services\EventBriteService.cs" />
     <Compile Include="Services\IEventBriteService.cs" />
   </ItemGroup>

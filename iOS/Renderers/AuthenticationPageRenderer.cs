@@ -35,12 +35,12 @@ namespace ReactiveBrite.iOS.Renderers
 
                     // Initialize the object that communicates with the OAuth service
                     var auth = new OAuth2Authenticator(
-                                   ConnectionConstants.ClientId,
-                                   ConnectionConstants.ClientSecret,
-                                   ConnectionConstants.Scope,
-                                   new Uri(ConnectionConstants.AuthorizeUrl),
-                                   new Uri(ConnectionConstants.RedirectUrl),
-                                   new Uri(ConnectionConstants.AccessTokenUrl));
+                                   EventbriteConstants.PersonalToken,
+                                   EventbriteConstants.ClientSecret,
+                                   EventbriteConstants.Scope,
+                                   new Uri(EventbriteConstants.AuthorizeUrl),
+                                   new Uri(EventbriteConstants.RedirectUrl),
+                                   new Uri(EventbriteConstants.AccessTokenUrl));
 
                     // Register an event handler for when the authentication process completes
                     auth.Completed += OnAuthenticationCompleted;
@@ -67,7 +67,7 @@ namespace ReactiveBrite.iOS.Renderers
             {
                 // If the user is authenticated, request their basic user data from Google
                 // UserInfoUrl = https://www.googleapis.com/oauth2/v2/userinfo
-                var request = new OAuth2Request("GET", new Uri(ConnectionConstants.UserInfoUrl), null, e.Account);
+                var request = new OAuth2Request("GET", new Uri(EventbriteConstants.UserInfoUrl), null, e.Account);
                 var response = await request.GetResponseAsync();
                 if (response != null)
                 {
